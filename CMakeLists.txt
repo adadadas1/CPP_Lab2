@@ -5,7 +5,7 @@ set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
 project(ip_filter VERSION ${PROJECT_VERSION})
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+find_package(Boost CONFIG COMPONENTS unit_test_framework REQUIRED)
 
 add_library(ip_filter_lib ip_filter.cpp)
 add_executable(ip_filter main.cpp)
@@ -18,12 +18,9 @@ set_target_properties(ip_filter_lib ip_filter test_ip_filter PROPERTIES
 
 target_link_libraries(ip_filter PRIVATE ip_filter_lib)
 
-set_target_properties(test_ip_filter PROPERTIES
-    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-)
-target_link_libraries(test_ip_filter
-    ${Boost_LIBRARIES}
+target_compile_definitions(test_ip_filter PRIVATE BOOST_TEST_DYN_LINK)
+target_link_libraries(test_ip_filter PRIVATE
+    Boost::unit_test_framework
     ip_filter_lib
 )
 

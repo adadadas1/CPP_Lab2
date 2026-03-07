@@ -8,8 +8,6 @@ int main(int, char const *[])
     {
         std::vector<IP> ip_pool;
 
-        // Читаем строки из stdin, каждая строка — "ip\tN\tN"
-        // Берём только первый столбец (сам IP)
         for (std::string line; std::getline(std::cin, line);)
         {
             auto v = split(line, '\t');
@@ -17,20 +15,16 @@ int main(int, char const *[])
             ip_pool.push_back(ip);
         }
 
-        // Сортируем весь пул в обратном порядке и выводим
         sort_reverse(ip_pool);
         for (const auto &ip : ip_pool)
             print_ip(ip);
 
-        // Фильтр: первый байт == 1
         for (const auto &ip : filter(ip_pool, 1))
             print_ip(ip);
 
-        // Фильтр: первый байт == 46, второй == 70
         for (const auto &ip : filter(ip_pool, 46, 70))
             print_ip(ip);
 
-        // Фильтр: любой байт == 46
         for (const auto &ip : filter_any(ip_pool, 46))
             print_ip(ip);
     }

@@ -4,8 +4,6 @@
 #include <iostream>
 #include <stdexcept>
 
-// Разбиваем строку по символу-разделителю d
-// Примеры: ("11.22", '.') -> ["11", "22"], ("..", '.') -> ["", "", ""]
 std::vector<std::string> split(const std::string &str, char d)
 {
     std::vector<std::string> r;
@@ -23,8 +21,6 @@ std::vector<std::string> split(const std::string &str, char d)
     return r;
 }
 
-// Парсим строку "a.b.c.d" -> tuple<int,int,int,int>
-// Бросаем исключение если формат неверный
 IP parse_ip(const std::string &s)
 {
     auto parts = split(s, '.');
@@ -34,7 +30,6 @@ IP parse_ip(const std::string &s)
                            std::stoi(parts[2]), std::stoi(parts[3]));
 }
 
-// Выводим IP в формате "a.b.c.d\n"
 void print_ip(const IP &ip)
 {
     std::cout << std::get<0>(ip) << "."
@@ -43,8 +38,6 @@ void print_ip(const IP &ip)
               << std::get<3>(ip) << "\n";
 }
 
-// Сортируем в обратном порядке — tuple сравнивается покомпонентно,
-// поэтому сортировка численная, а не строковая
 void sort_reverse(std::vector<IP> &ips)
 {
     std::sort(ips.begin(), ips.end(), [](const IP &a, const IP &b) {
@@ -52,7 +45,6 @@ void sort_reverse(std::vector<IP> &ips)
     });
 }
 
-// Возвращаем только адреса, у которых первый байт == b1
 std::vector<IP> filter(const std::vector<IP> &ips, int b1)
 {
     std::vector<IP> result;
@@ -61,7 +53,6 @@ std::vector<IP> filter(const std::vector<IP> &ips, int b1)
     return result;
 }
 
-// Возвращаем адреса, у которых первый байт == b1 и второй == b2
 std::vector<IP> filter(const std::vector<IP> &ips, int b1, int b2)
 {
     std::vector<IP> result;
@@ -72,7 +63,6 @@ std::vector<IP> filter(const std::vector<IP> &ips, int b1, int b2)
     return result;
 }
 
-// Возвращаем адреса, у которых хотя бы один байт равен val
 std::vector<IP> filter_any(const std::vector<IP> &ips, int val)
 {
     std::vector<IP> result;
