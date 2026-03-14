@@ -6,8 +6,8 @@
 
 using IP = std::tuple<int, int, int, int>;
 
-std::vector<std::string> split(const std::string &str, char d);
-IP parse_ip(const std::string &s);
+std::vector<std::string> split(const std::string &str, char delimiter);
+IP parse_ip(const std::string &ipStr);
 void print_ip(const IP &ip);
 void sort_reverse(std::vector<IP> &ips);
 std::vector<IP> filter(const std::vector<IP> &ips, int b1);

@@ -10,8 +10,8 @@ int main(int, char const *[])
 
         for (std::string line; std::getline(std::cin, line);)
         {
-            auto v = split(line, '\t');
-            decltype(ip_pool)::value_type ip = parse_ip(v.at(0));
+            auto fields = split(line, '\t');
+            decltype(ip_pool)::value_type ip = parse_ip(fields.at(0));
             ip_pool.push_back(ip);
         }
 

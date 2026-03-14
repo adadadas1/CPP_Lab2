@@ -4,30 +4,30 @@
 #include <iostream>
 #include <stdexcept>
 
-std::vector<std::string> split(const std::string &str, char d)
+std::vector<std::string> split(const std::string &str, char delimiter)
 {
-    std::vector<std::string> r;
+    std::vector<std::string> parts;
 
     std::string::size_type start = 0;
-    std::string::size_type stop = str.find_first_of(d);
+    std::string::size_type stop = str.find_first_of(delimiter);
     while (stop != std::string::npos)
     {
-        r.push_back(str.substr(start, stop - start));
+        parts.push_back(str.substr(start, stop - start));
         start = stop + 1;
-        stop = str.find_first_of(d, start);
+        stop = str.find_first_of(delimiter, start);
     }
-    r.push_back(str.substr(start));
+    parts.push_back(str.substr(start));
 
-    return r;
+    return parts;
 }
 
-IP parse_ip(const std::string &s)
+IP parse_ip(const std::string &ipStr)
 {
-    auto parts = split(s, '.');
-    if (parts.size() != 4)
-        throw std::invalid_argument("invalid IP: " + s);
-    return std::make_tuple(std::stoi(parts[0]), std::stoi(parts[1]),
-                           std::stoi(parts[2]), std::stoi(parts[3]));
+    auto octets = split(ipStr, '.');
+    if (octets.size() != 4)
+        throw std::invalid_argument("invalid IP: " + ipStr);
+    return std::make_tuple(std::stoi(octets[0]), std::stoi(octets[1]),
+                           std::stoi(octets[2]), std::stoi(octets[3]));
 }
 
 void print_ip(const IP &ip)
